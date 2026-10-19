@@ -12,7 +12,7 @@ This document covers running the debugger as a Java agent. This is the legacy ap
 Built jars are available on [Maven Central](https://central.sonatype.com/artifact/org.lucee/debugger-agent) — click the version, browse, and download `debugger-agent-{version}.jar`. For example:
 
 ```text
-https://repo1.maven.org/maven2/org/lucee/debugger-agent/3.0.0.4/debugger-agent-3.0.0.4.jar
+https://repo1.maven.org/maven2/org/lucee/debugger-agent/3.0.0.8/debugger-agent-3.0.0.8.jar
 ```
 
 ## JVM Configuration

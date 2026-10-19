@@ -1,6 +1,8 @@
 # Changelog
 
-## [3.0.0.8-SNAPSHOT] - 2026-05-22
+## [3.0.0.8] - 2026-10-19
+
+First final release since 3.0.0.4. It includes all changes from the 3.0.0.5 to 3.0.0.8 snapshots.
 
 ### Fixed
 
@@ -11,32 +13,9 @@
   - Expanding a Component now splits into `this` / `variables` / `static` / `functions` / `accessors` sub-groups (empty groups omitted); the `functions` and `accessors` groups render full signatures derived from `getMetaData(cfc)` (auto-generated accessors derived from the property declaration). Agent mode expands to a flat list with noisy UDFs filtered.
   - Variables panel exposes additional scopes: `cookie`, `cfthread`, `applicationContext`, `systemMetrics`
 - **[LDEV-6337](https://luceeserver.atlassian.net/browse/LDEV-6337)** (native only — Lucee 7.1+): Variables panel now shows the right `variables` scope on top-level CFM pages (was missing entirely) and inside custom-tag bodies (was leaking the caller's scope). Core fix on the INCLUDE debugger frame; existing specs for top-level CFM, cfmodule, and top-level exception-suspend now pass once the minimum core picks up the fix.
-
-### Changed
-
-- Minimum Lucee core version raised to **7.1.0.134**
-
-## [3.0.0.7-SNAPSHOT] - 2026-05-21
-
-### Fixed
-
 - **[LDEV-6335](https://luceeserver.atlassian.net/browse/LDEV-6335)**: native step-over now advances by source line rather than by ExecutionLog instrumentation block — multi-expression lines (e.g. `<cfset c = a & b>`) no longer require two clicks to advance past
 - **[LDEV-6334](https://luceeserver.atlassian.net/browse/LDEV-6334)**: stale frame IDs after step/continue resolve to the owning request's live `PageContext` via `requestId` matching, so racing VSCode requests no longer return "Frame not found" or blank the Variables panel
-
-### Changed
-
-- Minimum Lucee core version raised to **7.1.0.132**
-
-## [3.0.0.6-SNAPSHOT] - 2026-05-09
-
-### Fixed
-
 - **[LDEV-6309](https://luceeserver.atlassian.net/browse/LDEV-6309)**: `StackOverflowError` when inspecting variables containing self-referential structs. `ValTracker.wrapperByObj` now uses identity-keyed weak references instead of `WeakHashMap`, so registering an object no longer triggers `StructImpl.hashCode()`'s value-walk on cyclic graphs.
-
-## [3.0.0.5-SNAPSHOT] - 2026-04-23
-
-### Fixed
-
 - **[LDEV-6274](https://luceeserver.atlassian.net/browse/LDEV-6274)**: cfinclude frames now surface the included file's basename as the frame name, not the enclosing UDF's file
 - **Native**: HTML dump/dumpAsJSON crash caused by `DEFAULT_RICH` typo in native path
 - **Native**: DAP completions now suggest local + arguments scope variables
@@ -50,13 +29,14 @@
 
 ### Changed
 
-- Minimum Lucee core version raised to **7.1.0.100** (required for native exception breakpoints)
+- Minimum Lucee core version raised to **7.1.0.136** (3.0.0.4 required 7.1.0.96)
 - Refactored `NativeLuceeVm` from reflection to loader API throughout
 - Removed `Utils.terminate` / `Utils.unreachable` JVM-killers
 - Removed hot-path debug `println` spam from agent mode
 
 ### Added
 
+- **[LDEV-6344](https://luceeserver.atlassian.net/browse/LDEV-6344)**: the extension declares debugger API v1 and registers through `DebuggerRegistry.register()`; if core rejects the registration, the reason is shown in the IDE
 - **[LDEV-6282](https://luceeserver.atlassian.net/browse/LDEV-6282)**: Native-mode uncaught-exception breakpoints — debugger suspends on unhandled exceptions across cfm top-level, component methods, closures, cfthread join (throwOnError), and parallel arrayEach
 
 ## [3.0.0.4] - First Release 2026-03-26
